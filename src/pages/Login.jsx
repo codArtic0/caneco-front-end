@@ -46,7 +46,7 @@ function Login() {
         alert("Sucesso!", response.json);
       }
       else{
-        alert("Erro de login");
+        alert(data.message || "Erro de login");
       }
     } catch (error) {
         console.error("Erro", error);
@@ -54,9 +54,6 @@ function Login() {
       }
     
     console.log("Enviando para o servidor:", cpf, senha);
-    
-    alert(`Dados enviados com sucesso: ${cpf}`);
-    alert(`Dados enviados com sucesso: ${senha}`);
   };
     return (
         <div className="login-form">
