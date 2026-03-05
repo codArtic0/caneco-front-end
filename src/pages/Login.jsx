@@ -47,7 +47,7 @@ function Login() {
         const token = data.token;
       }
       else {
-        alert(data.message);
+        alert(data.error);
       }
     } catch (error) {
         console.error("Erro no Servidor", error);
