@@ -31,7 +31,7 @@ function Login() {
         cpf: cpf,
         password: senha.toString()
     }
-
+    
     try{
         const response = await fetch("http://localhost:3000/admin/logar", {
         method: "POST",
@@ -41,16 +41,17 @@ function Login() {
         body: JSON.stringify(dados),
       });
 
+      const data = await response.json();
+
       if (response.ok){
-        const data = await response.json();
-        alert("Sucesso!", response.json);
+        const token = data.token;
       }
-      else{
-        alert(data.message || "Erro de login");
+      else {
+        alert(data.message);
       }
     } catch (error) {
-        console.error("Erro", error);
-        alert("Deu erro no server")
+        console.error("Erro no Servidor", error);
+        alert(error)
       }
     
     console.log("Enviando para o servidor:", cpf, senha);
