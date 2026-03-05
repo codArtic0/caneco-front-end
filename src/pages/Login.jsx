@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import '../styles/Login.css';
+import api from '../services/api';
 
 function Login() {
     const [cpf, setCpf] = useState("");
@@ -33,25 +34,19 @@ function Login() {
     }
     
     try{
-        const response = await fetch("http://localhost:3000/admin/logar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dados),
-      });
+        const response = await api.post('/admin/logar', dados);
 
-      const data = await response.json();
-
-      if (response.ok){
-        const token = data.token;
+      if (response.status == 200){
+        const {token} = response.data;
+        localStorage.setItem('token', token);
+        alert("Registred")
       }
       else {
-        alert(data.error);
+        alert("Entrou aqui")
       }
     } catch (error) {
         console.error("Erro no Servidor", error);
-        alert(error)
+        alert(error.response.data.error)
       }
     
     console.log("Enviando para o servidor:", cpf, senha);
