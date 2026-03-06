@@ -1,0 +1,43 @@
+.botao-azul{
+    background-color: var(--color-blue);
+    padding: 20px;
+    margin: 20px;
+    border-color: transparent;
+    color: var(--color-white);
+    font-family: 'Poppins', sans-serif;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.botao-azul:hover{
+    background-color: var(--color-blue);
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+h1{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-style: bold;
+}
+
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
