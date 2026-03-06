@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../styles/Login.css';
 import api from '../services/api';
 
 function Login() {
     const [cpf, setCpf] = useState("");
     const [senha, setSenha] = useState("");
+    const navigate = useNavigate();
 
   const formatCPF = (value) => {
     return value
@@ -39,8 +41,10 @@ function Login() {
       if (response.status == 200){
         const {token} = response.data;
         localStorage.setItem('token', token);
+        navigate('/dashboard');
       }
     } catch (error) {
+        localStorage.removeItem('token');
         console.error("Erro no Servidor", error);
         alert(error.response.data.error)
       }
