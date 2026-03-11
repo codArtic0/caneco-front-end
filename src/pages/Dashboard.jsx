@@ -19,7 +19,7 @@ function Dashboard() {
 
     const novaVenda = () => {
         navigate('/dashboard/nova-venda');
-    }
+    };
 
     return (
         <div>

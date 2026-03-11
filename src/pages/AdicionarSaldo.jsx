@@ -2,16 +2,9 @@ import React from "react";
 import axios from 'axios';
 import Button from "../components/Button";
 import "../styles/Saldo.css";
+import api from "../services/api";
 
 function AdicionarSaldo() {
-    const token = localStorage.getItem('token');
-    const apiUrl = 'http://localhost:3000';
-    const api = axios.create({
-        baseURL: apiUrl,
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
 
     const handleChangeAmount = (e) => {
     const amount = (e.target.value);
