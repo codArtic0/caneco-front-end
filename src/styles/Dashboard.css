@@ -1,18 +1,15 @@
-.botao-azul{
-    background-color: var(--color-blue);
-    padding: 20px;
-    margin: 20px;
-    border-color: transparent;
-    color: var(--color-white);
-    font-family: 'Poppins', sans-serif;
-    border-radius: 5px;
-    transition: 0.2s;
+.input-group label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
-.botao-azul:hover{
-    background-color: var(--color-blue);
-    opacity: 0.8;
-    cursor: pointer;
+.input-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
 h1{
