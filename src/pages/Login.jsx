@@ -49,7 +49,6 @@ function Login() {
         alert(error.response.data.error)
       }
     
-    console.log("Enviando para o servidor:", cpf, senha);
   };
     return (
         <div className="login-form">

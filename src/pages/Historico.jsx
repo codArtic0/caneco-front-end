@@ -8,6 +8,7 @@ function Historico() {
 
     const [dataInicial, setDataInicial] = React.useState('');
     const [dataFinal, setDataFinal] = React.useState('');
+    const [vendas, setVendas] = React.useState([]);
 
     const handleChangeDataInicial = (e) => {
         const data = e.target.value;
@@ -27,8 +28,7 @@ function Historico() {
 
             if (response.status === 200) {
                 const historicoVendas = response.data;
-                console.log('Histórico de vendas:', historicoVendas);
-                alert('Histórico de vendas consultado com sucesso! Verifique o console para detalhes.');
+                setVendas(historicoVendas);
             }
         } catch (error) {
             console.error('Erro ao consultar histórico de vendas:', error);
@@ -50,6 +50,39 @@ function Historico() {
                 </div>
                 <Button onClick={handleConsultarHistorico}>Consultar Histórico</Button>
             </form>
+            <Button onClick={() => window.location.href = '/dashboard'}>Voltar ao Dashboard</Button>
+
+            <div className="lista-vendas" style={{ marginTop: '20px' }}>
+                    <h3>Resultados:</h3>
+                    
+                    {vendas.length > 0 ? (
+                        <table border="1" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr>
+                                    <th>Checkout Code</th>
+                                    <th>CPF do Cliente</th>
+                                    <th>Valor Total</th>
+                                    <th>Data da Venda</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {vendas.map((venda) => (
+                                    <tr key={venda.checkout_code}>
+                                        <td>{venda.checkout_code}</td>
+                                        <td>{venda.costumer_cpf}</td>
+                                        <td>{venda.total_price}</td>
+                                        <td>{venda.sale_day + '/' + venda.sale_month + '/' + venda.sale_year}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>Nenhum dado para exibir. Clique em consultar.</p>
+                    )}
+                </div>
+            
+                
+
             </div>
         </div>
     );
