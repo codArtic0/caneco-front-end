@@ -5,6 +5,7 @@ import AdicionarSaldo from '../pages/AdicionarSaldo';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Historico from '../pages/Historico';
 import NovaVenda from '../pages/NovaVenda';
+import Bebidas from '../pages/Bebidas';
 
 function AppRoutes() {
     return (
@@ -16,6 +17,7 @@ function AppRoutes() {
                 <Route path="/dashboard/adicionar-saldo" element={<ProtectedRoute element={<AdicionarSaldo />} />} />
                 <Route path="/dashboard/fechar-registro" element={<ProtectedRoute element={<h1>Fechar registro de caixa</h1>} />} />
                 <Route path="/dashboard/nova-venda" element={<ProtectedRoute element={<NovaVenda />} />} />
+                <Route path="/dashboard/nova-venda/bebidas" element={<ProtectedRoute element={<Bebidas />} />} />
             </Routes>
         </Router>
     );
