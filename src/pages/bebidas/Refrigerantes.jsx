@@ -54,15 +54,6 @@ export default function Refrigerantes() {
 
   }, []);
 
-  useEffect(() => {
-    if (product && quantity > 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTotal(product.price * quantity);
-    } else {
-      setTotal(0);
-    }
-  }, [product, quantity]);
-
   const handleConfirm = () => {
 
     if (!product) {
@@ -75,6 +66,8 @@ export default function Refrigerantes() {
       return;
     }
 
+    const new_value_total = total + (product.price * quantity);
+    setTotal(new_value_total);
     const sale = {
       productId: product.id,
       productName: product.name,
