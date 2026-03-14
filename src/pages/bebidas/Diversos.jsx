@@ -1,4 +1,5 @@
-import "../styles/Dashboard.css";
+/* eslint-disable no-unused-vars */
+import "../../styles/Dashboard.css";
 import React from "react";
 import {useNavigate} from 'react-router-dom';
 

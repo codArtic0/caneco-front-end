@@ -1,5 +1,5 @@
-import "../styles/Dashboard.css";
-import React from "react";
+/* eslint-disable no-unused-vars */
+import "../../styles/Dashboard.css";
 import {useNavigate} from 'react-router-dom';
 
 function Sucos() {

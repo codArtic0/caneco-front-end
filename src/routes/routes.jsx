@@ -5,13 +5,13 @@ import AdicionarSaldo from '../pages/AdicionarSaldo';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Historico from '../pages/Historico';
 import NovaVenda from '../pages/NovaVenda';
-import Bebidas from '../pages/Bebidas';
-import Refrigerantes from '../pages/Refrigerantes';
-import Alcoolicas from '../pages/Alcoolicas';
-import Sucos from '../pages/Sucos';
-import Achocolatados from '../pages/Achocolatados';
-import Energeticos from '../pages/Energeticos';
-import Diversos from '../pages/Diversos';
+import Bebidas from '../pages/bebidas/Bebidas';
+import Refrigerantes from '../pages/bebidas/Refrigerantes';
+import Alcoolicas from '../pages/bebidas/Alcoolicas';
+import Sucos from '../pages/bebidas/Sucos';
+import Achocolatados from '../pages/bebidas/Achocolatados';
+import Energeticos from '../pages/bebidas/Energeticos';
+import Diversos from '../pages/bebidas/Diversos';
 
 function AppRoutes() {
     return (

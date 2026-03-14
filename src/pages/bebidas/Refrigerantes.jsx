@@ -1,6 +1,6 @@
-import "../styles/Dashboard.css";
+import "../../styles/Dashboard.css";
 import React, { useState, useEffect } from "react";
-import api from "../services/api.js";
+import api from "../../services/api.js";
 
 const products = [
   { id: 1, name: "Coca-Cola 2L", price: 8.50 },
@@ -43,6 +43,7 @@ export default function Refrigerantes() {
 
   useEffect(() => {
     if (product && quantity > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTotal(product.price * quantity);
     } else {
       setTotal(0);
