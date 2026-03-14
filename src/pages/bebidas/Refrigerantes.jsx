@@ -1,16 +1,17 @@
 import "../../styles/Dashboard.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import api from "../../services/api.js";
+import { SaleContext } from '../../context/SaleContext';
 
 export default function Refrigerantes() {
 
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [total, setTotal] = useState(0);
   const [operator, setOperator] = useState("FULANO");
   const [dateTime, setDateTime] = useState("");
   const [loadingProducts, setLoadingProducts] = useState(true);
+  const { addItem, total } = useContext(SaleContext);
 
   useEffect(() => {
     api.get("/admin/nome-operador")
@@ -66,17 +67,8 @@ export default function Refrigerantes() {
       return;
     }
 
-    const new_value_total = total + (product.price * quantity);
-    setTotal(new_value_total);
-    const sale = {
-      productId: product.id,
-      productName: product.name,
-      price: product.price,
-      quantity: quantity,
-      total: total
-    };
-
-    console.log("Venda:", sale);
+    addItem(product, quantity);
+    alert("Produto adicionado à venda!");
   };
 
   return (
