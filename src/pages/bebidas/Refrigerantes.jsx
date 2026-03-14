@@ -2,21 +2,15 @@ import "../../styles/Dashboard.css";
 import React, { useState, useEffect } from "react";
 import api from "../../services/api.js";
 
-const products = [
-  { id: 1, name: "Coca-Cola 2L", price: 8.50 },
-  { id: 2, name: "Fanta Laranja 2L", price: 8.00 },
-  { id: 3, name: "Guaraná Antártica 2L", price: 7.50 },
-  { id: 4, name: "Fanta Uva 2L", price: 8.00 },
-  { id: 5, name: "Pepsi Cola 2L", price: 7.00 }
-];
-
 export default function Refrigerantes() {
 
+  const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
   const [operator, setOperator] = useState("FULANO");
   const [dateTime, setDateTime] = useState("");
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
     api.get("/admin/nome-operador")
@@ -31,15 +25,34 @@ export default function Refrigerantes() {
   }, []);
 
   useEffect(() => {
+    api.get("/listar-produtos-por-nome/refrigerantes")
+      .then(response => {
+        if (response.data && response.data.produtos) {
+          const mappedProducts = response.data.produtos.map(p => ({
+            id: p.id_product,
+            name: p.product_name,
+            price: p.price
+          }));
+          setProducts(mappedProducts);
+        }
+        setLoadingProducts(false);
+      })
+      .catch(error => {
+        console.error("Erro ao buscar produtos:", error);
+        setLoadingProducts(false);
+      });
+  }, []);
 
-  const interval = setInterval(() => {
-    const now = new Date();
-    setDateTime(now.toLocaleString());
-  }, 1000);
+  useEffect(() => {
 
-  return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      const now = new Date();
+      setDateTime(now.toLocaleString());
+    }, 1000);
 
-}, []);
+    return () => clearInterval(interval);
+
+  }, []);
 
   useEffect(() => {
     if (product && quantity > 0) {
@@ -99,7 +112,7 @@ export default function Refrigerantes() {
           }}
         >
           <option value="" disabled>
-            Digite uma opção
+            {loadingProducts ? "Carregando produtos..." : "Digite uma opção"}
           </option>
 
           {products.map((p) => (
