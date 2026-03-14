@@ -25,7 +25,7 @@ export default function Refrigerantes() {
   }, []);
 
   useEffect(() => {
-    api.get("/listar-produtos-por-nome/bebidas")
+    api.get("/listar-produtos-por-nome/refrigerantes")
       .then(response => {
         if (response.data && response.data.produtos) {
           const mappedProducts = response.data.produtos.map(p => ({
