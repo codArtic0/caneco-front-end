@@ -24,7 +24,12 @@ function Historico() {
         e.preventDefault();
 
         try {
-            const response = await api.get('/checkout/mostrar-historico');
+            const response = await api.get('/checkout/mostrar-historico', {
+                params: {
+                    data_inicial: dataInicial || undefined,
+                    data_final: dataFinal || undefined,
+                }
+            });
 
             if (response.status === 200) {
                 const historicoVendas = response.data;
@@ -39,22 +44,34 @@ function Historico() {
     return (
         <div>
             <div className="card">
-            <form className="form-historico">
-                <div className="input-group">
-                    <label htmlFor="data-inicial">Data inicial:</label>
-                    <input type="date" id="data-inicial" name="data-inicial" />
-                </div>
-                <div className="input-group">
-                    <label htmlFor="data-final">Data final:</label>
-                    <input type="date" id="data-final" name="data-final" />
-                </div>
-                <Button onClick={handleConsultarHistorico}>Consultar Histórico</Button>
-            </form>
-            <Button onClick={() => window.location.href = '/dashboard'}>Voltar ao Dashboard</Button>
+                <form className="form-historico">
+                    <div className="input-group">
+                        <label htmlFor="data-inicial">Data inicial:</label>
+                        <input
+                            type="date"
+                            id="data-inicial"
+                            name="data-inicial"
+                            value={dataInicial}
+                            onChange={handleChangeDataInicial}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="data-final">Data final:</label>
+                        <input
+                            type="date"
+                            id="data-final"
+                            name="data-final"
+                            value={dataFinal}
+                            onChange={handleChangeDataFinal}
+                        />
+                    </div>
+                    <Button onClick={handleConsultarHistorico}>Consultar Histórico</Button>
+                </form>
+                <Button onClick={() => window.location.href = '/dashboard'}>Voltar ao Dashboard</Button>
 
-            <div className="lista-vendas" style={{ marginTop: '20px' }}>
+                <div className="lista-vendas" style={{ marginTop: '20px' }}>
                     <h3>Resultados:</h3>
-                    
+
                     {vendas.length > 0 ? (
                         <table border="1" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead>
@@ -80,8 +97,8 @@ function Historico() {
                         <p>Nenhum dado para exibir. Clique em consultar.</p>
                     )}
                 </div>
-            
-                
+
+
 
             </div>
         </div>
