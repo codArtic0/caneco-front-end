@@ -1,10 +1,13 @@
 import "../../styles/Dashboard.css";
 import React, { useState, useEffect, useContext } from "react";
+import Dropdown from "../../components/Dropdown";
+import "../../styles/Card.css";
+import  "../../styles/Select.css";  
 import api from "../../services/api.js";
 import { SaleContext } from '../../context/SaleContext';
+import Button from "../../components/Button.jsx";
 
 export default function Refrigerantes() {
-
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -16,25 +19,21 @@ export default function Refrigerantes() {
   useEffect(() => {
     api.get("/admin/nome-operador")
       .then(response => {
-        if (response.data) {
-          setOperator(response.data.name);
-        }
+        if (response.data) setOperator(response.data.name);
       })
-      .catch(error => {
-        console.error("Erro ao buscar nome do operador:", error);
-      });
+      .catch(error => console.error("Erro ao buscar operador:", error));
   }, []);
 
   useEffect(() => {
     api.get("/listar-produtos-por-nome/refrigerantes")
       .then(response => {
         if (response.data && response.data.produtos) {
-          const mappedProducts = response.data.produtos.map(p => ({
+          const mapped = response.data.produtos.map(p => ({
             id: p.id_product,
             name: p.product_name,
             price: p.price
           }));
-          setProducts(mappedProducts);
+          setProducts(mapped);
         }
         setLoadingProducts(false);
       })
@@ -45,81 +44,75 @@ export default function Refrigerantes() {
   }, []);
 
   useEffect(() => {
-
     const interval = setInterval(() => {
-      const now = new Date();
-      setDateTime(now.toLocaleString());
+      setDateTime(new Date().toLocaleString());
     }, 1000);
-
     return () => clearInterval(interval);
-
   }, []);
 
-  const handleConfirm = () => {
+  // Configurações do React Select
+  const options = products.map((p) => ({
+    value: p.id,
+    label: p.name,
+  }));
 
+  const handleChange = (selectedOption) => {
+    const selected = products.find((p) => p.id === selectedOption?.value);
+    setProduct(selected || null);
+  };
+
+  const handleConfirm = () => {
     if (!product) {
       alert("Selecione um produto");
       return;
     }
-
     if (quantity <= 0) {
       alert("Informe uma quantidade válida");
       return;
     }
-
     addItem(product, quantity);
     alert("Produto adicionado à venda!");
+    setProduct(null);
+    setQuantity(1);
   };
 
   return (
-    <div className="bebidas-refrigerantes-container">
+    <div className="card">
+      <div className="bebidas-refrigerantes-container">
+        <div className="bebidas-refrigerantes-header">
+          <h1>BEBIDAS REFRIGERANTES</h1>
+          <div>OPERADOR: {operator}</div>
+          <div>{dateTime}</div>
+        </div>
 
-      <div className="bebidas-refrigerantes-header">
-        <h1>BEBIDAS REFRIGERANTES</h1>
-        <div>OPERADOR: {operator}</div>
-        <div>{dateTime}</div>
+        <div className="total-box">
+          <span>TOTAL (R$)</span>
+          <h1>{total.toFixed(2)}</h1>
+        </div>
+
+        <div className="form">
+          <div style={{ width: '100%', color: '#000' }}>
+            <Dropdown 
+              items={products}
+              selectedItem={product}
+              onChange={setProduct}
+              isLoading={loadingProducts}
+              placeholder="Digite o nome do refrigerante..."
+          />
+          </div>
+
+          <input
+            type="number"
+            min="1"
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+          />
+
+          <Button onClick={handleConfirm}>
+            CONFIRMAR
+          </Button>
+        </div>
       </div>
-
-      <div className="total-box">
-        <span>TOTAL (R$)</span>
-        <h1>{total.toFixed(2)}</h1>
-      </div>
-
-      <div className="form">
-
-        <select
-          value={product?.id || ""}
-          onChange={(e) => {
-            const selected = products.find(
-              p => p.id === Number(e.target.value)
-            );
-            setProduct(selected);
-          }}
-        >
-          <option value="" disabled>
-            {loadingProducts ? "Carregando produtos..." : "Digite uma opção"}
-          </option>
-
-          {products.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="number"
-          min="1"
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        />
-
-        <button onClick={handleConfirm}>
-          CONFIRMAR
-        </button>
-
-      </div>
-
     </div>
   );
 }

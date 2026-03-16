@@ -1,0 +1,35 @@
+.select-container {
+    width: 80%;
+}
+
+.select-container .select__control {
+    border-radius: 4px;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
+
+.select-container .select__placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: poppins, sans-serif;
+}
+
+.select-container .select__single-value {
+    color: var(--color-white);
+    font-family: poppins, sans-serif;
+}
+
+
+.select-container .select__option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.select-container .select__option--is-focused {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
+
+.select-container .select__option--is-selected {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
