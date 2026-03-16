@@ -5,6 +5,7 @@ import AdicionarSaldo from '../pages/AdicionarSaldo';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Historico from '../pages/Historico';
 import NovaVenda from '../pages/NovaVenda';
+import FinalizarVenda from '../pages/FinalizarVenda';
 import Bebidas from '../pages/bebidas/Bebidas';
 import Refrigerantes from '../pages/bebidas/Refrigerantes';
 import Alcoolicas from '../pages/bebidas/Alcoolicas';
@@ -30,6 +31,8 @@ function AppRoutes() {
                 <Route path="/dashboard/nova-venda/bebidas/achocolatados" element={<ProtectedRoute element={<Achocolatados />} />} />
                 <Route path="/dashboard/nova-venda/bebidas/energeticos" element={<ProtectedRoute element={<Energeticos />} />} />
                 <Route path="/dashboard/nova-venda/bebidas/diversos" element={<ProtectedRoute element={<Diversos />} />} />
+                <Route path="/dashboard/finalizar-venda" element={<ProtectedRoute element={<FinalizarVenda />} />} />
+                
 
             </Routes>
         </Router>

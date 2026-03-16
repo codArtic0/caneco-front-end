@@ -2,6 +2,7 @@ import "../styles/Dashboard.css";
 import React, { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { SaleContext } from '../context/SaleContext';
+import Button from "../components/Button";
 
 function NovaVenda() {
     const navigate = useNavigate();
@@ -9,6 +10,10 @@ function NovaVenda() {
 
     const bebidas = () => {
         navigate('/dashboard/nova-venda/bebidas');
+    };
+
+    const finalizarVenda = () => {
+        navigate('/dashboard/finalizar-venda');
     };
 
     return (
@@ -31,6 +36,10 @@ function NovaVenda() {
                 <div className="nova-venda-content">
                     <button className="botao-azul" onClick={bebidas}> bebidas </button>
                 </div>
+
+                <Button onClick={finalizarVenda}>
+                    Finalizar Venda
+                </Button>
             </div>
         </div>
     );
