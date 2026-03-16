@@ -6,6 +6,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import Historico from '../pages/Historico';
 import NovaVenda from '../pages/NovaVenda';
 import FinalizarVenda from '../pages/FinalizarVenda';
+import ImprimirNota from '../pages/ImprimirNota';
 import Bebidas from '../pages/bebidas/Bebidas';
 import Refrigerantes from '../pages/bebidas/Refrigerantes';
 import Alcoolicas from '../pages/bebidas/Alcoolicas';
@@ -32,7 +33,7 @@ function AppRoutes() {
                 <Route path="/dashboard/nova-venda/bebidas/energeticos" element={<ProtectedRoute element={<Energeticos />} />} />
                 <Route path="/dashboard/nova-venda/bebidas/diversos" element={<ProtectedRoute element={<Diversos />} />} />
                 <Route path="/dashboard/finalizar-venda" element={<ProtectedRoute element={<FinalizarVenda />} />} />
-                
+                <Route path="/dashboard/imprimir-nota" element={<ProtectedRoute element={<ImprimirNota />} />} />
 
             </Routes>
         </Router>

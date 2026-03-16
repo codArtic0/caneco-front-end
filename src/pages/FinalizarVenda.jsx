@@ -2,7 +2,7 @@ import "../styles/FinalizarVenda.css";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-import { SaleContext } from "../context/SaleContext";
+import { SaleContext } from "../context/saleContext";
 
 export default function FinalizarVenda() {
   const navigate = useNavigate();
@@ -143,6 +143,16 @@ export default function FinalizarVenda() {
           >
             Adicionar Crédito
           </button>
+
+          <button
+            type="button"
+            className="botao-amarelo"
+            onClick={() => navigate("/dashboard/imprimir-nota")}
+          >
+            Imprimir Nota
+          </button>
+
+
           <button
             type="button"
             className="botao-verde"
@@ -150,6 +160,7 @@ export default function FinalizarVenda() {
           >
             Editar Itens
           </button>
+          
           <button
             type="button"
             className="botao-vermelho"
