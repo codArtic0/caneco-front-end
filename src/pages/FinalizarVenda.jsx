@@ -67,12 +67,24 @@ export default function FinalizarVenda() {
   }, [valorPago, total]);
 
   const handleAddPayment = (method, label) => {
+    const restante = Math.max(0, total - valorPago);
+
+    if (method !== "dinheiro" && restante <= 0) {
+      alert("A venda já está quitada. Para troco, use apenas dinheiro.");
+      return;
+    }
+
     const input = window.prompt(`Digite o valor em R$ para ${label}`);
     if (!input) return;
     const value = parseFloat(input.replace(/,/g, "."));
 
     if (Number.isNaN(value) || value <= 0) {
       alert("Digite um valor válido maior que 0.");
+      return;
+    }
+
+    if (method !== "dinheiro" && value > restante) {
+      alert(`Esse método não permite excedente. Máximo: R$ ${restante.toFixed(2)}.`);
       return;
     }
 
