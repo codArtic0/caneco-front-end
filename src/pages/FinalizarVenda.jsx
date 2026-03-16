@@ -8,6 +8,15 @@ export default function FinalizarVenda() {
   const navigate = useNavigate();
   const { items, total, clearSale } = useContext(SaleContext);
 
+  const formatCPF = (value) => {
+    return value
+      .replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1');
+  };
+
   const [operator, setOperator] = useState("FULANO");
   const [dateTime, setDateTime] = useState(() => new Date().toLocaleString());
   const [payments, setPayments] = useState({
@@ -16,6 +25,9 @@ export default function FinalizarVenda() {
     debito: 0,
     credito: 0,
   });
+  const [showCpfModal, setShowCpfModal] = useState(false);
+  const [cpfInput, setCpfInput] = useState("");
+  const [cpf, setCpf] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -80,14 +92,38 @@ export default function FinalizarVenda() {
       return;
     }
 
+    setShowCpfModal(true);
+  };
+
+  const handleEditarItens = () => {
+    navigate("/dashboard/nova-venda");
+  };
+
+  const handleConfirmCpf = () => {
+    const formattedCpf = formatCPF(cpfInput);
+    setCpf(formattedCpf);
+    setShowCpfModal(false);
+    setCpfInput("");
+    
+    clearSale();
+    setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
+    alert(`Venda finalizada com sucesso! CPF: ${formattedCpf}`);
+    navigate("/dashboard");
+  };
+
+  const handleCancelCpf = () => {
+    setCpf("");
+    setShowCpfModal(false);
+    setCpfInput("");
     clearSale();
     setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
     alert("Venda finalizada com sucesso!");
     navigate("/dashboard");
   };
 
-  const handleEditarItens = () => {
-    navigate("/dashboard/nova-venda");
+  const handleChangeCpf = (e) => {
+    const formattedCpf = formatCPF(e.target.value);
+    setCpfInput(formattedCpf);
   };
 
   return (
@@ -191,6 +227,25 @@ export default function FinalizarVenda() {
           </div>
         )}
       </div>
+
+      {showCpfModal && (
+        <div className="cpf-modal-overlay">
+          <div className="cpf-modal">
+            <h3>Informe o CPF do cliente</h3>
+            <input
+              type="text"
+              placeholder="000.000.000-00"
+              value={cpfInput}
+              onChange={handleChangeCpf}
+              maxLength={14}
+            />
+            <div className="cpf-modal-buttons">
+              <button onClick={handleConfirmCpf}>Confirmar</button>
+              <button onClick={handleCancelCpf}>Pular</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

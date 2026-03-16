@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SaleContext } from "../context/saleContext";
-import "../styles/ImprimirNota.css"; // Assuming you have or will create this CSS file
+import "../styles/ImprimirNota.css";
 
 export default function ImprimirNota() {
     const { items, total } = useContext(SaleContext);
