@@ -28,6 +28,7 @@ export default function FinalizarVenda() {
   const [showCpfModal, setShowCpfModal] = useState(false);
   const [cpfInput, setCpfInput] = useState("");
   const [cpf, setCpf] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,12 +67,24 @@ export default function FinalizarVenda() {
   }, [valorPago, total]);
 
   const handleAddPayment = (method, label) => {
+    const restante = Math.max(0, total - valorPago);
+
+    if (method !== "dinheiro" && restante <= 0) {
+      alert("A venda já está quitada. Para troco, use apenas dinheiro.");
+      return;
+    }
+
     const input = window.prompt(`Digite o valor em R$ para ${label}`);
     if (!input) return;
     const value = parseFloat(input.replace(/,/g, "."));
 
     if (Number.isNaN(value) || value <= 0) {
       alert("Digite um valor válido maior que 0.");
+      return;
+    }
+
+    if (method !== "dinheiro" && value > restante) {
+      alert(`Esse método não permite excedente. Máximo: R$ ${restante.toFixed(2)}.`);
       return;
     }
 
@@ -92,6 +105,11 @@ export default function FinalizarVenda() {
       return;
     }
 
+    if (valorPago > total && payments.dinheiro < troco) {
+      alert("Para dar troco, o excedente precisa estar no pagamento em dinheiro.");
+      return;
+    }
+
     setShowCpfModal(true);
   };
 
@@ -99,26 +117,83 @@ export default function FinalizarVenda() {
     navigate("/dashboard/nova-venda");
   };
 
+  const buildCheckoutItemsPayload = () => {
+    return items.map((item) => ({
+      id_product: item.productId,
+      quantity: item.quantity,
+    }));
+  };
+
+  const buildPagamentosPayload = () => {
+    const pagamentos = [];
+
+    const dinheiroAjustado = Math.max(0, payments.dinheiro - troco);
+
+    if (dinheiroAjustado > 0) pagamentos.push({ payment_method: "dinheiro", payment_amount: dinheiroAjustado });
+    if (payments.pix > 0) pagamentos.push({ payment_method: "pix", payment_amount: payments.pix });
+    if (payments.debito > 0) pagamentos.push({ payment_method: "debito", payment_amount: payments.debito });
+    if (payments.credito > 0) pagamentos.push({ payment_method: "credito", payment_amount: payments.credito });
+
+    return pagamentos;
+  };
+
+  const finalizarVenda = async (cpfValueOrEmpty) => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      const formattedCpf = cpfValueOrEmpty ? formatCPF(cpfValueOrEmpty) : "";
+      const cpfSomenteDigitos = formattedCpf.replace(/\D/g, "");
+
+      const checkoutBody = {
+        costumer_cpf: cpfSomenteDigitos || null,
+        items: buildCheckoutItemsPayload(),
+      };
+
+      const checkoutResp = await api.post("/checkout/realizar-checkout", checkoutBody);
+      const checkoutCode = checkoutResp?.data?.checkout_code;
+
+      if (!checkoutCode) {
+        throw new Error("Checkout realizado, mas não retornou checkout_code.");
+      }
+
+      const pagamentos = buildPagamentosPayload();
+      const pagamentoResp = await api.post(`/checkout/realizar-pagamento/${checkoutCode}`, { pagamentos });
+
+      if (pagamentoResp.status !== 200) {
+        throw new Error("Falha ao processar pagamento.");
+      }
+
+      setCpf(formattedCpf);
+      setShowCpfModal(false);
+      setCpfInput("");
+
+      clearSale();
+      setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
+
+      alert(
+        formattedCpf
+          ? `Venda finalizada com sucesso! CPF: ${formattedCpf}`
+          : "Venda finalizada com sucesso!"
+      );
+      navigate("/dashboard");
+    } catch (err) {
+      const message =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Erro ao finalizar venda.";
+      alert(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleConfirmCpf = () => {
-    const formattedCpf = formatCPF(cpfInput);
-    setCpf(formattedCpf);
-    setShowCpfModal(false);
-    setCpfInput("");
-    
-    clearSale();
-    setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
-    alert(`Venda finalizada com sucesso! CPF: ${formattedCpf}`);
-    navigate("/dashboard");
+    finalizarVenda(cpfInput);
   };
 
   const handleCancelCpf = () => {
-    setCpf("");
-    setShowCpfModal(false);
-    setCpfInput("");
-    clearSale();
-    setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
-    alert("Venda finalizada com sucesso!");
-    navigate("/dashboard");
+    finalizarVenda("");
   };
 
   const handleChangeCpf = (e) => {
@@ -172,8 +247,9 @@ export default function FinalizarVenda() {
             type="button"
             className="botao-vermelho"
             onClick={handleFinalizarVenda}
+            disabled={isSubmitting}
           >
-            Finalizar Venda
+            {isSubmitting ? "Processando..." : "Finalizar Venda"}
           </button>
         </div>
       </div>
@@ -238,10 +314,11 @@ export default function FinalizarVenda() {
               value={cpfInput}
               onChange={handleChangeCpf}
               maxLength={14}
+              disabled={isSubmitting}
             />
             <div className="cpf-modal-buttons">
-              <button onClick={handleConfirmCpf}>Confirmar</button>
-              <button onClick={handleCancelCpf}>Pular</button>
+              <button onClick={handleConfirmCpf} disabled={isSubmitting}>Confirmar</button>
+              <button onClick={handleCancelCpf} disabled={isSubmitting}>Pular</button>
             </div>
           </div>
         </div>
