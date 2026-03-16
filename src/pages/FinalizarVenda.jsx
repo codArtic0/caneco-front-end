@@ -196,6 +196,12 @@ export default function FinalizarVenda() {
     finalizarVenda("");
   };
 
+  const handleCadastrarCliente = () => {
+    if (isSubmitting) return;
+    setShowCpfModal(false);
+    navigate("/dashboard/cadastrar-cliente");
+  };
+
   const handleChangeCpf = (e) => {
     const formattedCpf = formatCPF(e.target.value);
     setCpfInput(formattedCpf);
@@ -307,7 +313,10 @@ export default function FinalizarVenda() {
       {showCpfModal && (
         <div className="cpf-modal-overlay">
           <div className="cpf-modal">
-            <h3>Informe o CPF do cliente</h3>
+            <h3>Identificação do cliente</h3>
+            <p style={{ marginBottom: 8, fontSize: 14 }}>
+              Você pode digitar o CPF do cliente já cadastrado ou cadastrar um novo cliente.
+            </p>
             <input
               type="text"
               placeholder="000.000.000-00"
@@ -319,6 +328,9 @@ export default function FinalizarVenda() {
             <div className="cpf-modal-buttons">
               <button onClick={handleConfirmCpf} disabled={isSubmitting}>Confirmar</button>
               <button onClick={handleCancelCpf} disabled={isSubmitting}>Pular</button>
+              <button onClick={handleCadastrarCliente} disabled={isSubmitting}>
+                Cadastrar cliente
+              </button>
             </div>
           </div>
         </div>
