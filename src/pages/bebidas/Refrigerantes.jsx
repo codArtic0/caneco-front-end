@@ -1,14 +1,15 @@
 import "../../styles/Dashboard.css";
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Dropdown from "../../components/Dropdown";
 import "../../styles/Card.css";
 import  "../../styles/Select.css";  
 import api from "../../services/api.js";
 import { SaleContext } from '../../context/SaleContext';
 import Button from "../../components/Button.jsx";
-import Dashboard from "../Dashboard.jsx";
 
 export default function Refrigerantes() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -50,17 +51,6 @@ export default function Refrigerantes() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  // Configurações do React Select
-  const options = products.map((p) => ({
-    value: p.id,
-    label: p.name,
-  }));
-
-  const handleChange = (selectedOption) => {
-    const selected = products.find((p) => p.id === selectedOption?.value);
-    setProduct(selected || null);
-  };
 
   const handleConfirm = () => {
     if (!product) {
@@ -113,7 +103,7 @@ export default function Refrigerantes() {
             CONFIRMAR
           </Button>
 
-          <Button onClick={() => window.location.href = '/dashboard/nova-venda/'}>
+          <Button onClick={() => navigate('/dashboard/nova-venda')}>
             Adicionar mais itens
           </Button>
         </div>

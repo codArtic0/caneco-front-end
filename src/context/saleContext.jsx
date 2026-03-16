@@ -20,8 +20,12 @@ export function SaleProvider({ children }) {
         return sum + item.price * item.quantity;
     }, 0);
 
+    function clearSale() {
+        setItems([]);
+    }
+
     return (
-        <SaleContext.Provider value={{ items, addItem, total }}>
+        <SaleContext.Provider value={{ items, addItem, total, clearSale }}>
             {children}
         </SaleContext.Provider>
     );
