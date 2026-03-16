@@ -14,6 +14,7 @@ import Sucos from '../pages/bebidas/Sucos';
 import Achocolatados from '../pages/bebidas/Achocolatados';
 import Energeticos from '../pages/bebidas/Energeticos';
 import Diversos from '../pages/bebidas/Diversos';
+import CadastroCliente from '../pages/CadastroCliente';
 
 function AppRoutes() {
     return (
@@ -34,6 +35,7 @@ function AppRoutes() {
                 <Route path="/dashboard/nova-venda/bebidas/diversos" element={<ProtectedRoute element={<Diversos />} />} />
                 <Route path="/dashboard/finalizar-venda" element={<ProtectedRoute element={<FinalizarVenda />} />} />
                 <Route path="/dashboard/imprimir-nota" element={<ProtectedRoute element={<ImprimirNota />} />} />
+                <Route path="/dashboard/cadastrar-cliente" element={<ProtectedRoute element={<CadastroCliente />} />} />
 
             </Routes>
         </Router>
