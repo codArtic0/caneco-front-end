@@ -6,6 +6,7 @@ import  "../../styles/Select.css";
 import api from "../../services/api.js";
 import { SaleContext } from '../../context/SaleContext';
 import Button from "../../components/Button.jsx";
+import Dashboard from "../Dashboard.jsx";
 
 export default function Refrigerantes() {
   const [products, setProducts] = useState([]);
@@ -110,6 +111,10 @@ export default function Refrigerantes() {
 
           <Button onClick={handleConfirm}>
             CONFIRMAR
+          </Button>
+
+          <Button onClick={() => window.location.href = '/dashboard/nova-venda/'}>
+            Adicionar mais itens
           </Button>
         </div>
       </div>
