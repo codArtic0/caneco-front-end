@@ -117,35 +117,6 @@ export default function FinalizarVenda() {
         <div className="action-buttons">
           <button
             type="button"
-            className="botao-azul"
-            onClick={() => handleAddPayment("dinheiro", "dinheiro")}
-          >
-            Adicionar Dinheiro
-          </button>
-          <button
-            type="button"
-            className="botao-azul"
-            onClick={() => handleAddPayment("pix", "PIX")}
-          >
-            Adicionar PIX
-          </button>
-          <button
-            type="button"
-            className="botao-azul"
-            onClick={() => handleAddPayment("debito", "débito")}
-          >
-            Adicionar Débito
-          </button>
-          <button
-            type="button"
-            className="botao-azul"
-            onClick={() => handleAddPayment("credito", "crédito")}
-          >
-            Adicionar Crédito
-          </button>
-
-          <button
-            type="button"
             className="botao-amarelo"
             onClick={() => navigate("/dashboard/imprimir-nota")}
           >
