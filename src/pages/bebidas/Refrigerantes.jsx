@@ -5,7 +5,7 @@ import Dropdown from "../../components/Dropdown";
 import "../../styles/Card.css";
 import  "../../styles/Select.css";  
 import api from "../../services/api.js";
-import { SaleContext } from '../../context/SaleContext';
+import { SaleContext } from "../../context/saleContext";
 import Button from "../../components/Button.jsx";
 
 export default function Refrigerantes() {
