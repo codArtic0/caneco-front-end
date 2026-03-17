@@ -22,7 +22,7 @@ export function SaleProvider({ children }) {
         return sum + item.price * item.quantity;
     }, 0);
 
-    const total = subtotal * (1 - discount / 100);
+    const total = Number((subtotal * (1 - discount / 100)).toFixed(2));
 
     function clearSale() {
         setItems([]);

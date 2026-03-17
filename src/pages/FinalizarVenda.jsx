@@ -139,9 +139,8 @@ export default function FinalizarVenda() {
       const checkoutBody = {
         costumer_cpf: cpfSomenteDigitos || null,
         items: buildCheckoutItemsPayload(),
-        total: total,
+        total: total
       };
-
       const checkoutResp = await api.post("/checkout/realizar-checkout", checkoutBody);
       const checkoutCode = checkoutResp?.data?.checkout_code;
 
