@@ -1,5 +1,4 @@
 import React from "react";
-import axios from 'axios';
 import Button from "../components/Button";
 import "../styles/Saldo.css";
 import api from "../services/api";

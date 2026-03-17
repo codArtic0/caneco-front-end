@@ -1,5 +1,5 @@
 import "../../styles/Dashboard.css";
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../../components/Dropdown.jsx";
 import "../../styles/Card.css";

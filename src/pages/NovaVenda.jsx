@@ -1,5 +1,5 @@
 import "../styles/Dashboard.css";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { SaleContext } from '../context/saleContext';
 import Button from "../components/Button";
@@ -80,7 +80,9 @@ function NovaVenda() {
                     )}
                 </div>
                 <div className="nova-venda-content">
-                    <button className="botao-azul" onClick={produtos}> Produtos </button>
+                    <Button onClick={produtos}>
+                        Produtos
+                    </Button>
                 </div>
 
                 <Button onClick={finalizarVenda}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState } from "react";;
 import "../styles/Button.css";
 import Button from '../components/Button';
 import "../styles/Card.css";
@@ -6,9 +6,9 @@ import api from '../services/api';
 
 function Historico() {
 
-    const [dataInicial, setDataInicial] = React.useState('');
-    const [dataFinal, setDataFinal] = React.useState('');
-    const [vendas, setVendas] = React.useState([]);
+    const [dataInicial, setDataInicial] = useState('');
+    const [dataFinal, setDataFinal] = useState('');
+    const [vendas, setVendas] = useState([]);
 
     const handleChangeDataInicial = (e) => {
         const data = e.target.value;
