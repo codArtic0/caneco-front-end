@@ -82,7 +82,7 @@ export default function Achocolatados() {
         </div>
 
         <div className="form">
-          <div style={{ width: "100%", color: "#000" }}>
+          <div className="full-width">
             <Dropdown
               items={products}
               selectedItem={product}
@@ -92,12 +92,16 @@ export default function Achocolatados() {
             />
           </div>
 
-          <input
-            type="number"
-            min="1"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-          />
+          <div className="quantity-group">
+            <label htmlFor="quantity">Quantidade</label>
+            <input
+              id="quantity"
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+          </div>
 
           <Button onClick={handleConfirm}>
             CONFIRMAR

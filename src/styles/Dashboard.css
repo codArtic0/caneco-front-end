@@ -46,7 +46,7 @@ h1{
 .bebidas-alcoolicas-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   align-items: center;
   width: 100%;
 }
@@ -66,9 +66,10 @@ h1{
 }
 
 .total-box {
-  width: 50%;
+  width: 100%;
+  max-width: 360px;
   background: rgba(0, 0, 0, 0.04);
-  padding: 10px;
+  padding: 14px;
   border-radius: 14px;
   border: 1px solid var(--color-border);
   text-align: center;
@@ -89,15 +90,33 @@ h1{
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   width: 100%;
   max-width: 360px;
   align-items: center;
 }
 
-.form input[type="number"] {
+.quantity-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.quantity-group label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.quantity-group input {
   width: 100%;
   max-width: 180px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form button {

@@ -82,23 +82,26 @@ export default function Diversos() {
         </div>
 
         <div className="form">
-          <div style={{ width: "100%", color: "#000" }}>
-            <Dropdown
+          <div className="full-width">
+            <Dropdown 
               items={products}
               selectedItem={product}
               onChange={setProduct}
               isLoading={loadingProducts}
               placeholder="Digite o nome do produto..."
-            />
+          />
           </div>
 
-          <input
-            type="number"
-            min="1"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-          />
-
+          <div className="quantity-group">
+            <label htmlFor="quantity">Quantidade</label>
+            <input
+              id="quantity"
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+          </div>
           <Button onClick={handleConfirm}>
             CONFIRMAR
           </Button>
