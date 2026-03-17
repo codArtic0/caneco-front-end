@@ -2,41 +2,41 @@ import "../../styles/Dashboard.css";
 import React from "react";
 import {useNavigate} from 'react-router-dom';
 
-function Bebidas(){
+function produtos(){
 
     const navigate = useNavigate();
 
     const alcoolicas = () => {
-        navigate('/dashboard/nova-venda/bebidas/alcoolicas');
+        navigate('/dashboard/nova-venda/produtos/alcoolicas');
     }
 
     const refrigerantes = () => {
-        navigate('/dashboard/nova-venda/bebidas/refrigerantes');
+        navigate('/dashboard/nova-venda/produtos/refrigerantes');
     }
 
     const sucos = () => {
-        navigate('/dashboard/nova-venda/bebidas/sucos');
+        navigate('/dashboard/nova-venda/produtos/sucos');
     }
 
     const achocolatados = () => {
-        navigate('/dashboard/nova-venda/bebidas/achocolatados');
+        navigate('/dashboard/nova-venda/produtos/achocolatados');
     }
 
     const energeticos = () => {
-        navigate('/dashboard/nova-venda/bebidas/energeticos');
+        navigate('/dashboard/nova-venda/produtos/energeticos');
     }
 
     const diversos = () => {
-        navigate('/dashboard/nova-venda/bebidas/diversos');
+        navigate('/dashboard/nova-venda/produtos/diversos');
     }
 
     return (
         <div>
-            <div className="bebidas-container">
-                <div className="bebidas-header">
-                    <h1>BEBIDAS</h1>
+            <div className="produtos-container">
+                <div className="produtos-header">
+                    <h1>Produtos</h1>
                 </div>
-                <div className="bebidas-content">
+                <div className="produtos-content">
                     <button className="botao-azul" onClick={refrigerantes}>
                         Refrigerantes
                     </button>
@@ -60,4 +60,4 @@ function Bebidas(){
         </div>
     );
 }
-export default Bebidas;
+export default produtos;

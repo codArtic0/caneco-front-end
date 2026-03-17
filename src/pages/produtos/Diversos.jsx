@@ -1,14 +1,14 @@
 import "../../styles/Dashboard.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/Dropdown.jsx";
 import "../../styles/Card.css";
-import  "../../styles/Select.css";  
+import "../../styles/Select.css";
 import api from "../../services/api.js";
-import { SaleContext } from "../../context/saleContext";
+import { SaleContext } from "../../context/saleContext.jsx";
 import Button from "../../components/Button.jsx";
 
-export default function Refrigerantes() {
+export default function Diversos() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
@@ -20,26 +20,26 @@ export default function Refrigerantes() {
 
   useEffect(() => {
     api.get("/admin/nome-operador")
-      .then(response => {
+      .then((response) => {
         if (response.data) setOperator(response.data.name);
       })
-      .catch(error => console.error("Erro ao buscar operador:", error));
+      .catch((error) => console.error("Erro ao buscar operador:", error));
   }, []);
 
   useEffect(() => {
-    api.get("/listar-produtos-por-nome/refrigerantes")
-      .then(response => {
+    api.get("/listar-produtos-por-nome/diversos")
+      .then((response) => {
         if (response.data && response.data.produtos) {
-          const mapped = response.data.produtos.map(p => ({
+          const mapped = response.data.produtos.map((p) => ({
             id: p.id_product,
             name: p.product_name,
-            price: p.price
+            price: p.price,
           }));
           setProducts(mapped);
         }
         setLoadingProducts(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Erro ao buscar produtos:", error);
         setLoadingProducts(false);
       });
@@ -69,9 +69,9 @@ export default function Refrigerantes() {
 
   return (
     <div className="card">
-      <div className="bebidas-refrigerantes-container">
-        <div className="bebidas-refrigerantes-header">
-          <h1>BEBIDAS REFRIGERANTES</h1>
+      <div className="bebidas-diversos-container">
+        <div className="bebidas-diversos-header">
+          <h1>DIVERSOS</h1>
           <div>OPERADOR: {operator}</div>
           <div>{dateTime}</div>
         </div>
@@ -82,14 +82,14 @@ export default function Refrigerantes() {
         </div>
 
         <div className="form">
-          <div style={{ width: '100%', color: '#000' }}>
-            <Dropdown 
+          <div style={{ width: "100%", color: "#000" }}>
+            <Dropdown
               items={products}
               selectedItem={product}
               onChange={setProduct}
               isLoading={loadingProducts}
-              placeholder="Digite o nome do refrigerante..."
-          />
+              placeholder="Digite o nome do produto..."
+            />
           </div>
 
           <input
@@ -103,7 +103,7 @@ export default function Refrigerantes() {
             CONFIRMAR
           </Button>
 
-          <Button onClick={() => navigate('/dashboard/nova-venda')}>
+          <Button onClick={() => navigate("/dashboard/nova-venda")}>
             Adicionar mais itens
           </Button>
         </div>

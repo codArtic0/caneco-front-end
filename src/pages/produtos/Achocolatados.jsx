@@ -1,14 +1,14 @@
 import "../../styles/Dashboard.css";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/Dropdown.jsx";
 import "../../styles/Card.css";
 import "../../styles/Select.css";
 import api from "../../services/api.js";
-import { SaleContext } from "../../context/saleContext";
+import { SaleContext } from "../../context/saleContext.jsx";
 import Button from "../../components/Button.jsx";
 
-export default function Diversos() {
+export default function Achocolatados() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
@@ -27,7 +27,7 @@ export default function Diversos() {
   }, []);
 
   useEffect(() => {
-    api.get("/listar-produtos-por-nome/diversos")
+    api.get("/listar-produtos-por-nome/achocolatados")
       .then((response) => {
         if (response.data && response.data.produtos) {
           const mapped = response.data.produtos.map((p) => ({
@@ -69,9 +69,9 @@ export default function Diversos() {
 
   return (
     <div className="card">
-      <div className="bebidas-diversos-container">
-        <div className="bebidas-diversos-header">
-          <h1>DIVERSOS</h1>
+      <div className="bebidas-achocolatados-container">
+        <div className="bebidas-achocolatados-header">
+          <h1>ACHOCOLATADOS</h1>
           <div>OPERADOR: {operator}</div>
           <div>{dateTime}</div>
         </div>
@@ -88,7 +88,7 @@ export default function Diversos() {
               selectedItem={product}
               onChange={setProduct}
               isLoading={loadingProducts}
-              placeholder="Digite o nome do produto..."
+              placeholder="Digite o nome do achocolatado..."
             />
           </div>
 
