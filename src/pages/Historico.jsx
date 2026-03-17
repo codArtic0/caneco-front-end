@@ -42,7 +42,7 @@ function Historico() {
     };
 
     return (
-        <div>
+        <div className="page-container">
             <div className="card">
                 <form className="form-historico">
                     <div className="input-group">
@@ -69,7 +69,7 @@ function Historico() {
                 </form>
                 <Button onClick={() => window.location.href = '/dashboard'}>Voltar ao Dashboard</Button>
 
-                <div className="lista-vendas" style={{ marginTop: '20px' }}>
+                <div className="lista-vendas">
                     <h3>Resultados:</h3>
 
                     {vendas.length > 0 ? (
