@@ -4,6 +4,8 @@ export const SaleContext = createContext();
 
 export function SaleProvider({ children }) {
     const [items, setItems] = useState([]);
+    const [cpf, setCpf] = useState("");
+    const [discount, setDiscount] = useState(0);
 
     function addItem(product, quantity) {
         const newItem = {
@@ -16,16 +18,20 @@ export function SaleProvider({ children }) {
         setItems(prev => [...prev, newItem]);
     }
 
-    const total = items.reduce((sum, item) => {
+    const subtotal = items.reduce((sum, item) => {
         return sum + item.price * item.quantity;
     }, 0);
 
+    const total = subtotal * (1 - discount / 100);
+
     function clearSale() {
         setItems([]);
+        setCpf("");
+        setDiscount(0);
     }
 
     return (
-        <SaleContext.Provider value={{ items, addItem, total, clearSale }}>
+        <SaleContext.Provider value={{ items, addItem, total, subtotal, clearSale, cpf, setCpf, discount, setDiscount }}>
             {children}
         </SaleContext.Provider>
     );

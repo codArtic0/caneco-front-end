@@ -3,7 +3,7 @@ import '../styles/App.css'
 import Login from './Login';
 import Dashboard from './Dashboard';
 import AppRoutes from '../routes/routes';
-import { SaleProvider } from '../context/SaleContext';
+import { SaleProvider } from '../context/saleContext';
 
 function App() {
 

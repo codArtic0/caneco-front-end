@@ -6,7 +6,7 @@ import { SaleContext } from "../context/saleContext";
 
 export default function FinalizarVenda() {
   const navigate = useNavigate();
-  const { items, total, clearSale } = useContext(SaleContext);
+  const { items, total, clearSale, cpf } = useContext(SaleContext);
 
   const formatCPF = (value) => {
     return value
@@ -25,9 +25,6 @@ export default function FinalizarVenda() {
     debito: 0,
     credito: 0,
   });
-  const [showCpfModal, setShowCpfModal] = useState(false);
-  const [cpfInput, setCpfInput] = useState("");
-  const [cpf, setCpf] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -110,11 +107,7 @@ export default function FinalizarVenda() {
       return;
     }
 
-    setShowCpfModal(true);
-  };
-
-  const handleEditarItens = () => {
-    navigate("/dashboard/nova-venda");
+    finalizarVenda(cpf);
   };
 
   const buildCheckoutItemsPayload = () => {
@@ -127,9 +120,7 @@ export default function FinalizarVenda() {
   const buildPagamentosPayload = () => {
     const pagamentos = [];
 
-    const dinheiroAjustado = Math.max(0, payments.dinheiro - troco);
-
-    if (dinheiroAjustado > 0) pagamentos.push({ payment_method: "dinheiro", payment_amount: dinheiroAjustado });
+    if (payments.dinheiro > 0) pagamentos.push({ payment_method: "dinheiro", payment_amount: payments.dinheiro });
     if (payments.pix > 0) pagamentos.push({ payment_method: "pix", payment_amount: payments.pix });
     if (payments.debito > 0) pagamentos.push({ payment_method: "debito", payment_amount: payments.debito });
     if (payments.credito > 0) pagamentos.push({ payment_method: "credito", payment_amount: payments.credito });
@@ -148,6 +139,7 @@ export default function FinalizarVenda() {
       const checkoutBody = {
         costumer_cpf: cpfSomenteDigitos || null,
         items: buildCheckoutItemsPayload(),
+        total: total,
       };
 
       const checkoutResp = await api.post("/checkout/realizar-checkout", checkoutBody);
@@ -163,10 +155,6 @@ export default function FinalizarVenda() {
       if (pagamentoResp.status !== 200) {
         throw new Error("Falha ao processar pagamento.");
       }
-
-      setCpf(formattedCpf);
-      setShowCpfModal(false);
-      setCpfInput("");
 
       clearSale();
       setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
@@ -188,23 +176,8 @@ export default function FinalizarVenda() {
     }
   };
 
-  const handleConfirmCpf = () => {
-    finalizarVenda(cpfInput);
-  };
-
-  const handleCancelCpf = () => {
-    finalizarVenda("");
-  };
-
-  const handleCadastrarCliente = () => {
-    if (isSubmitting) return;
-    setShowCpfModal(false);
-    navigate("/dashboard/cadastrar-cliente");
-  };
-
-  const handleChangeCpf = (e) => {
-    const formattedCpf = formatCPF(e.target.value);
-    setCpfInput(formattedCpf);
+  const handleEditarItens = () => {
+    navigate("/dashboard/nova-venda");
   };
 
   return (
@@ -309,32 +282,6 @@ export default function FinalizarVenda() {
           </div>
         )}
       </div>
-
-      {showCpfModal && (
-        <div className="cpf-modal-overlay">
-          <div className="cpf-modal">
-            <h3>Identificação do cliente</h3>
-            <p style={{ marginBottom: 8, fontSize: 14 }}>
-              Você pode digitar o CPF do cliente já cadastrado ou cadastrar um novo cliente.
-            </p>
-            <input
-              type="text"
-              placeholder="000.000.000-00"
-              value={cpfInput}
-              onChange={handleChangeCpf}
-              maxLength={14}
-              disabled={isSubmitting}
-            />
-            <div className="cpf-modal-buttons">
-              <button onClick={handleConfirmCpf} disabled={isSubmitting}>Confirmar</button>
-              <button onClick={handleCancelCpf} disabled={isSubmitting}>Pular</button>
-              <button onClick={handleCadastrarCliente} disabled={isSubmitting}>
-                Cadastrar cliente
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
