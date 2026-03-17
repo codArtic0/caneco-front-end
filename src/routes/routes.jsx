@@ -15,6 +15,7 @@ import Achocolatados from '../pages/produtos/Achocolatados';
 import Energeticos from '../pages/produtos/Energeticos';
 import Diversos from '../pages/produtos/Diversos';
 import CadastroCliente from '../pages/CadastroCliente';
+import FecharCaixa from '../pages/FecharCaixa';
 
 function AppRoutes() {
     return (
@@ -24,7 +25,7 @@ function AppRoutes() {
                 <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
                 <Route path="/dashboard/historico" element={<ProtectedRoute element={<Historico />} />} />
                 <Route path="/dashboard/adicionar-saldo" element={<ProtectedRoute element={<AdicionarSaldo />} />} />
-                <Route path="/dashboard/fechar-registro" element={<ProtectedRoute element={<h1>Fechar registro de caixa</h1>} />} />
+                <Route path="/dashboard/fechar-registro" element={<ProtectedRoute element={<FecharCaixa />} /> } />
                 <Route path="/dashboard/nova-venda" element={<ProtectedRoute element={<NovaVenda />} />} />
                 <Route path="/dashboard/nova-venda/produtos" element={<ProtectedRoute element={<Produtos />} />} />
                 <Route path="/dashboard/nova-venda/produtos/refrigerantes" element={<ProtectedRoute element={<Refrigerantes />} />} />
