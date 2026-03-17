@@ -19,8 +19,8 @@ function NovaVenda() {
             .replace(/(-\d{2})\d+?$/, '$1');
     };
 
-    const bebidas = () => {
-        navigate('/dashboard/nova-venda/bebidas');
+    const produtos = () => {
+        navigate('/dashboard/nova-venda/produtos');
     };
 
     const finalizarVenda = () => {
@@ -80,7 +80,7 @@ function NovaVenda() {
                     )}
                 </div>
                 <div className="nova-venda-content">
-                    <button className="botao-azul" onClick={bebidas}> bebidas </button>
+                    <button className="botao-azul" onClick={produtos}> Produtos </button>
                 </div>
 
                 <Button onClick={finalizarVenda}>

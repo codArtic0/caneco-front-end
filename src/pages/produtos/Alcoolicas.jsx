@@ -1,11 +1,11 @@
 import "../../styles/Dashboard.css";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/Dropdown.jsx";
 import "../../styles/Card.css";
 import "../../styles/Select.css";
 import api from "../../services/api.js";
-import { SaleContext } from "../../context/saleContext";
+import { SaleContext } from "../../context/saleContext.jsx";
 import Button from "../../components/Button.jsx";
 
 export default function Alcoolicas() {
