@@ -1,5 +1,5 @@
+import Button from "../components/Button";
 import "../styles/Dashboard.css";
-import React from "react";
 import {useNavigate} from 'react-router-dom';
 
 function Dashboard() {
@@ -28,12 +28,18 @@ function Dashboard() {
                     <h1>DASHBOARD</h1>
                 </div>
                 <div className="dashboard-content">
-                    <button className="botao-azul" onClick={historico}>
+                    <Button onClick={historico}>
                         Histórico de vendas
-                    </button>
-                    <button className="botao-azul" onClick={adicionarSaldo}>Adicionar saldo</button>
-                    <button className="botao-azul" onClick={fecharRegistro}>Fechar registro de caixa</button>
-                    <button className="botao-azul" onClick={novaVenda}>Nova venda</button>
+                    </Button>
+                    <Button onClick={adicionarSaldo}>
+                        Adicionar saldo
+                    </Button>
+                    <Button onClick={fecharRegistro}>
+                        Fechar registro de caixa
+                    </Button>
+                    <Button onClick={novaVenda}>
+                        Nova venda
+                    </Button>
                 </div>
             </div>
         </div>

@@ -1,15 +1,14 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import Button from '../components/Button';
 import api from '../services/api';
 import "../styles/Button.css";
 import "../styles/Card.css";
 import "../styles/Saldo.css";
-import { useNavigate } from 'react-router-dom';
 
 export default function FecharCaixa() {
-    const [vendas, setVendas] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState(null);
+    const [vendas, setVendas] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -41,7 +40,7 @@ export default function FecharCaixa() {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         loadHistoricoHoje();
     }, []);
 
@@ -102,7 +101,6 @@ export default function FecharCaixa() {
                 </div>
 
                 <div className="actions" style={{ marginTop: '20px', display: 'flex', gap: '12px' }}>
-                    <Button onClick={loadHistoricoHoje}>Atualizar</Button>
                     <Button onClick={fecharRegistro}>Fechar Caixa</Button>
                     <Button onClick={() => window.location.href = '/dashboard'}>Voltar ao Dashboard</Button>
                 </div>

@@ -1,4 +1,3 @@
-/* Garante que o corpo da página não tenha espaços em branco nas bordas */
 :root, body {
   margin: 0;
   padding: 0;

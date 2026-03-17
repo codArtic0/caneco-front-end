@@ -23,7 +23,7 @@
 }
 .input-group {
   display: flex;
-  flex-direction: column; /* Isola o label acima do input */
+  flex-direction: column;
   margin-bottom: 20px;
   text-align: left;
 }
