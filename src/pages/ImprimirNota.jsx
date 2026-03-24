@@ -1,9 +1,13 @@
 import { useContext } from "react";
 import { SaleContext } from "../context/saleContext";
 import "../styles/ImprimirNota.css";
+import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function ImprimirNota() {
     const { items, total } = useContext(SaleContext);
+
+    const navigate = useNavigate();
 
     const handlePrint = () => {
         window.print();
@@ -36,6 +40,9 @@ export default function ImprimirNota() {
             <button className="print-button" onClick={handlePrint}>
                 Imprimir Nota
             </button>
+            <Button onClick={() => (navigate("/dashboard/finalizar-venda"))}>
+                Voltar
+            </Button>
         </div>
     );
 }
