@@ -124,6 +124,7 @@ function NovaVenda() {
 
     return (
         <div>
+            <div className="card">
             <div className="nova-venda-container">
                 <div className="nova-venda-header">
                     <h1>Nova venda</h1>
@@ -195,6 +196,7 @@ function NovaVenda() {
                     </div>
                 </div>
             )}
+        </div>
         </div>
     );
 }
