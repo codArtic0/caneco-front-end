@@ -2,10 +2,13 @@ import { createContext, useState } from "react";
 
 export const SaleContext = createContext();
 
+const initialPayments = { dinheiro: 0, pix: 0, debito: 0, credito: 0 };
+
 export function SaleProvider({ children }) {
     const [items, setItems] = useState([]);
     const [cpf, setCpf] = useState("");
     const [discount, setDiscount] = useState(0);
+    const [payments, setPayments] = useState(initialPayments);
 
     function addItem(product, quantity) {
         const newItem = {
@@ -28,10 +31,11 @@ export function SaleProvider({ children }) {
         setItems([]);
         setCpf("");
         setDiscount(0);
+        setPayments(initialPayments);
     }
 
     return (
-        <SaleContext.Provider value={{ items, addItem, total, subtotal, clearSale, cpf, setCpf, discount, setDiscount }}>
+        <SaleContext.Provider value={{ items, addItem, total, subtotal, clearSale, cpf, setCpf, discount, setDiscount, payments, setPayments }}>
             {children}
         </SaleContext.Provider>
     );

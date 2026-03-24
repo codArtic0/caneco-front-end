@@ -7,7 +7,7 @@ import { SaleContext } from "../context/saleContext";
 
 export default function FinalizarVenda() {
   const navigate = useNavigate();
-  const { items, total, clearSale, cpf, subtotal } = useContext(SaleContext);
+  const { items, total, clearSale, cpf, subtotal, payments, setPayments } = useContext(SaleContext);
 
   const formatCPF = (value) => {
     return value
@@ -20,12 +20,6 @@ export default function FinalizarVenda() {
 
   const [operator, setOperator] = useState("FULANO");
   const [dateTime, setDateTime] = useState(() => new Date().toLocaleString());
-  const [payments, setPayments] = useState({
-    dinheiro: 0,
-    pix: 0,
-    debito: 0,
-    credito: 0,
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -157,7 +151,6 @@ export default function FinalizarVenda() {
       }
 
       clearSale();
-      setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
 
       showSuccessAlert(
         formattedCpf
@@ -287,7 +280,7 @@ export default function FinalizarVenda() {
         </div>
 
         {falta > 0 && (
-          <div style={{ marginTop: 12, color: "#c0392b" }}>
+          <div className="finalizar-venda-falta">
             Falta R$ {falta.toFixed(2)} para fechar a venda.
           </div>
         )}
