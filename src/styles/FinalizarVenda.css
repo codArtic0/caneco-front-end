@@ -109,6 +109,12 @@
   gap: 12px;
 }
 
+.finalizar-venda-falta {
+  margin-top: 12px;
+  color: #c0392b;
+  font-weight: 600;
+}
+
 .payment-card {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 14px;
