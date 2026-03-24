@@ -7,7 +7,7 @@ import { SaleContext } from "../context/saleContext";
 
 export default function FinalizarVenda() {
   const navigate = useNavigate();
-  const { items, total, clearSale, cpf } = useContext(SaleContext);
+  const { items, total, clearSale, cpf, subtotal } = useContext(SaleContext);
 
   const formatCPF = (value) => {
     return value
@@ -199,9 +199,19 @@ export default function FinalizarVenda() {
                   {item.quantity}x {item.name}
                 </span>
                 <span>R$ {(item.price * item.quantity).toFixed(2)}</span>
+                
               </div>
             ))
           )}
+          <div className="info">
+              <strong>Subtotal: R$ {subtotal.toFixed(2)}</strong>
+          </div>
+          <div className="info">
+            <strong>Desconto: R$ {((subtotal.toFixed(2)-total.toFixed(2)).toFixed(2))}</strong>
+          </div>
+          <div className="info">
+            <strong>Total: R$ {total.toFixed(2)}</strong>
+          </div>
         </div>
 
         <div className="action-buttons">
