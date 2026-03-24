@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function ImprimirNota() {
-    const { items, total } = useContext(SaleContext);
+    const { items, total, subtotal, cpf } = useContext(SaleContext);
 
     const navigate = useNavigate();
 
@@ -33,8 +33,18 @@ export default function ImprimirNota() {
                         ))}
                     </div>
                 )}
+                <div className="nota-subtotal">
+                    <strong>Subtotal: R$ {subtotal.toFixed(2)}</strong>
+                </div>
+                <div className="nota-desconto">
+                    <strong>Desconto: R$ {(subtotal.toFixed(2) - total.toFixed(2)).toFixed(2)}</strong>
+                </div>
                 <div className="nota-total">
                     <strong>Total: R$ {total.toFixed(2)}</strong>
+                </div>
+
+                <div className="cpf">
+                    <strong>CPF: {cpf}</strong>
                 </div>
             </div>
             <button className="print-button" onClick={handlePrint}>
