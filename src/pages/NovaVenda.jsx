@@ -86,11 +86,22 @@ function NovaVenda() {
         return 500;
     }
 };
-    const handleConfirmCpf = async () => {
+
+    const handleConfirmCpf = () =>{
         const formattedCpf = formatCPF(cpfInput);
-        const exists = await verifyCPF(formattedCpf);
-        
         setCpf(formattedCpf);
+
+        if (formattedCpf.length<14){
+            setDiscount(0);
+            closeAndNavigate();
+        }
+        else {
+            checkcpf(formattedCpf)
+        }
+    }
+    const checkcpf = async (formattedCpf) => {
+        
+        const exists = await verifyCPF(formattedCpf);
 
         if (exists === 200) {
             setDiscount(10);
