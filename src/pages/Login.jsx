@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../styles/Login.css';
 import api from '../services/api';
+import {showErrorAlert} from '../services/alerts';
 
 function Login() {
     const [cpf, setCpf] = useState("");
@@ -46,7 +47,8 @@ function Login() {
     } catch (error) {
         localStorage.removeItem('token');
         console.error("Erro no Servidor", error);
-        alert(error.response.data.error)
+        const errorMessage = error.response?.data?.error || "Erro desconhecido";
+        showErrorAlert("Erro ao fazer login", errorMessage);
       }
     
   };

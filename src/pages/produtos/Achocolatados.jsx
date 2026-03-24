@@ -2,6 +2,7 @@ import "../../styles/Dashboard.css";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../../components/Dropdown.jsx";
+import { showAlert, showSuccessAlert } from "../../services/alerts.js";
 import "../../styles/Card.css";
 import "../../styles/Select.css";
 import api from "../../services/api.js";
@@ -54,15 +55,15 @@ export default function Achocolatados() {
 
   const handleConfirm = () => {
     if (!product) {
-      alert("Selecione um produto");
+      showAlert("Selecione um produto");
       return;
     }
     if (quantity <= 0) {
-      alert("Informe uma quantidade válida");
+      showAlert("Informe uma quantidade válida");
       return;
     }
     addItem(product, quantity);
-    alert("Produto adicionado à venda!");
+    showSuccessAlert("Produto adicionado à venda!");
     setProduct(null);
     setQuantity(1);
   };

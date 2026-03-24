@@ -7,6 +7,7 @@ import "../../styles/Select.css";
 import api from "../../services/api.js";
 import { SaleContext } from "../../context/saleContext.jsx";
 import Button from "../../components/Button.jsx";
+import { showAlert, showSuccessAlert } from "../../services/alerts.js";
 
 export default function Sucos() {
   const navigate = useNavigate();
@@ -54,15 +55,15 @@ export default function Sucos() {
 
   const handleConfirm = () => {
     if (!product) {
-      alert("Selecione um produto");
+      showAlert("Selecione um produto");
       return;
     }
     if (quantity <= 0) {
-      alert("Informe uma quantidade válida");
+      showAlert("Informe uma quantidade válida");
       return;
     }
     addItem(product, quantity);
-    alert("Produto adicionado à venda!");
+    showSuccessAlert("Produto adicionado à venda!");
     setProduct(null);
     setQuantity(1);
   };
