@@ -1,4 +1,5 @@
 import "../styles/FinalizarVenda.css";
+import { showAlert, showSuccessAlert, showErrorAlert } from "../services/alerts";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -67,7 +68,7 @@ export default function FinalizarVenda() {
     const restante = Math.max(0, total - valorPago);
 
     if (method !== "dinheiro" && restante <= 0) {
-      alert("A venda já está quitada. Para troco, use apenas dinheiro.");
+      showAlert("A venda já está quitada.", "Para troco, use apenas dinheiro.");
       return;
     }
 
@@ -76,12 +77,12 @@ export default function FinalizarVenda() {
     const value = parseFloat(input.replace(/,/g, "."));
 
     if (Number.isNaN(value) || value <= 0) {
-      alert("Digite um valor válido maior que 0.");
+      showAlert("Valor inválido.", "Digite um valor válido maior que 0.");
       return;
     }
 
     if (method !== "dinheiro" && value > restante) {
-      alert(`Esse método não permite excedente. Máximo: R$ ${restante.toFixed(2)}.`);
+      showAlert("Valor excedente.", `Esse método não permite excedente. Máximo: R$ ${restante.toFixed(2)}.`);
       return;
     }
 
@@ -93,17 +94,17 @@ export default function FinalizarVenda() {
 
   const handleFinalizarVenda = () => {
     if (items.length === 0) {
-      alert("Adicione pelo menos um item antes de finalizar a venda.");
+      showAlert("Nenhum item adicionado.", "Adicione pelo menos um item antes de finalizar a venda.");
       return;
     }
 
     if (valorPago < total) {
-      alert(`Ainda faltam R$ ${falta.toFixed(2)} para completar a venda.`);
+      showErrorAlert("Valor insuficiente.", `Ainda faltam R$ ${falta.toFixed(2)} para completar a venda.`);
       return;
     }
 
     if (valorPago > total && payments.dinheiro < troco) {
-      alert("Para dar troco, o excedente precisa estar no pagamento em dinheiro.");
+      showAlert("Troco insuficiente.", "Para dar troco, o excedente precisa estar no pagamento em dinheiro.");
       return;
     }
 
@@ -158,7 +159,7 @@ export default function FinalizarVenda() {
       clearSale();
       setPayments({ dinheiro: 0, pix: 0, debito: 0, credito: 0 });
 
-      alert(
+      showSuccessAlert(
         formattedCpf
           ? `Venda finalizada com sucesso! CPF: ${formattedCpf}`
           : "Venda finalizada com sucesso!"
@@ -169,7 +170,7 @@ export default function FinalizarVenda() {
         err?.response?.data?.message ||
         err?.message ||
         "Erro ao finalizar venda.";
-      alert(message);
+      showErrorAlert("Erro ao finalizar venda.", message);
     } finally {
       setIsSubmitting(false);
     }

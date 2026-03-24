@@ -14,7 +14,6 @@ import Sucos from '../pages/produtos/Sucos';
 import Achocolatados from '../pages/produtos/Achocolatados';
 import Energeticos from '../pages/produtos/Energeticos';
 import Diversos from '../pages/produtos/Diversos';
-import CadastroCliente from '../pages/CadastroCliente';
 import FecharCaixa from '../pages/FecharCaixa';
 
 function AppRoutes() {
@@ -36,7 +35,6 @@ function AppRoutes() {
                 <Route path="/dashboard/nova-venda/produtos/diversos" element={<ProtectedRoute element={<Diversos />} />} />
                 <Route path="/dashboard/finalizar-venda" element={<ProtectedRoute element={<FinalizarVenda />} />} />
                 <Route path="/dashboard/imprimir-nota" element={<ProtectedRoute element={<ImprimirNota />} />} />
-                <Route path="/dashboard/cadastrar-cliente" element={<ProtectedRoute element={<CadastroCliente />} />} />
 
             </Routes>
         </Router>

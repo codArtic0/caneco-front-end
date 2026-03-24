@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../components/Button";
 import "../styles/Saldo.css";
+import { showErrorAlert, showSuccessAlert } from "../services/alerts";
 import api from "../services/api";
 
 function AdicionarSaldo() {
@@ -18,12 +19,12 @@ function AdicionarSaldo() {
             const response = await api.put('/admin/adicionar-saldo', { amount });
 
         if (response.status == 200){
-            alert("Saldo adicionado com sucesso!", response.data);
+            showSuccessAlert("Saldo adicionado com sucesso!", response.data);
         }
         } catch (error) {
-            alert("Erro ao adicionar saldo", error.response.data.error);
+            showErrorAlert("Erro ao adicionar saldo", error.response.data.error);
             console.error("Erro no Servidor", error);
-            alert(error.response.data.error)
+            showErrorAlert("Erro ao adicionar saldo", error.response.data.error);
         }
         
     };
